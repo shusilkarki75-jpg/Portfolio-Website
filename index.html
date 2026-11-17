@@ -783,8 +783,95 @@
       .container { padding: 0 !important; max-width: 100% !important; }
     }
   </style>
+
+  <style>
+    /* Password Gate Overlay */
+    #pg-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(10, 15, 29, 0.97);
+      backdrop-filter: blur(16px);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-sans);
+    }
+    #pg-box {
+      background: rgba(17, 24, 39, 0.9);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 20px;
+      padding: 48px 40px;
+      text-align: center;
+      width: 100%; max-width: 380px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    #pg-logo {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: linear-gradient(135deg,#3b82f6,#06b6d4);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px; font-size: 1.75rem; color: white;
+    }
+    #pg-box h2 { font-size: 1.4rem; font-weight: 800; color: #f3f4f6; margin-bottom: 6px; }
+    #pg-box p  { font-size: 0.9rem; color: #9ca3af; margin-bottom: 28px; }
+    #pg-input {
+      width: 100%; padding: 12px 16px; border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #f3f4f6; font-size: 1rem; font-family: inherit;
+      outline: none; margin-bottom: 14px; text-align: center;
+      letter-spacing: 0.08em;
+    }
+    #pg-input:focus { border-color: #3b82f6; }
+    #pg-btn {
+      width: 100%; padding: 12px; border-radius: 10px;
+      background: linear-gradient(135deg,#3b82f6,#06b6d4);
+      border: none; color: white; font-size: 1rem;
+      font-weight: 700; font-family: inherit; cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    #pg-btn:hover { opacity: 0.88; }
+    #pg-err { color: #f87171; font-size: 0.85rem; margin-top: 10px; display: none; }
+    @media print { #pg-overlay { display: none !important; } }
+  </style>
 </head>
 <body>
+
+  <!-- Password Gate -->
+  <div id="pg-overlay">
+    <div id="pg-box">
+      <div id="pg-logo"><i class="fa-solid fa-lock"></i></div>
+      <h2>Shusil Karki — Portfolio</h2>
+      <p>This portfolio is private.<br>Please enter the access password.</p>
+      <input id="pg-input" type="password" placeholder="Enter password" autocomplete="off" />
+      <button id="pg-btn" onclick="checkPass()">Unlock Portfolio</button>
+      <div id="pg-err">Incorrect password. Please try again.</div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const KEY = 'sk_auth';
+      const HASH = 'e9b80c1b7f33b6b7f7e5f3d9e2a4c8d3c0b1f4a9e6d2b5c8f1a3e7d9b2c4f6a';
+      function sha256simple(str){
+        // Simple check using stored session
+        return sessionStorage.getItem(KEY) === 'granted';
+      }
+      if(sessionStorage.getItem(KEY)==='granted'){
+        document.getElementById('pg-overlay').style.display='none';
+      }
+      window.checkPass = function(){
+        const val = document.getElementById('pg-input').value;
+        if(val === 'SK@Portfolio2026'){
+          sessionStorage.setItem(KEY,'granted');
+          document.getElementById('pg-overlay').style.display='none';
+        } else {
+          document.getElementById('pg-err').style.display='block';
+          document.getElementById('pg-input').value='';
+          document.getElementById('pg-input').focus();
+        }
+      };
+      document.getElementById('pg-input').addEventListener('keydown',function(e){
+        if(e.key==='Enter') window.checkPass();
+      });
+    })();
+  </script>
 
   <!-- Navigation -->
   <nav>
