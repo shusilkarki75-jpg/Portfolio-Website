@@ -561,25 +561,130 @@
       }
     }
 
-    /* Print CV styling for instant PDF generation */
+    /* Print CV styling for clean 1-2 page PDF */
     @media print {
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
       body {
-        background: white;
-        color: black;
+        background: #fff !important;
+        color: #111 !important;
+        font-size: 10pt;
+        font-family: 'Plus Jakarta Sans', Arial, sans-serif;
       }
-      nav, .hero-actions, .contact-card, footer {
-        display: none;
-      }
+
+      /* Hide nav, CTA buttons, contact section, footer */
+      nav, .hero-actions, #contact, footer, .hero-badge { display: none !important; }
+
+      /* Hero: compact 2-column side-by-side */
       .hero {
-        padding: 0;
-        grid-template-columns: 1fr;
+        display: grid !important;
+        grid-template-columns: 1fr 160px !important;
+        gap: 16px !important;
+        padding: 10px 0 8px !important;
+        align-items: start !important;
       }
-      .timeline-card, .stat-box, .skill-card {
-        border: 1px solid #ccc;
-        box-shadow: none;
-        background: white;
-        color: black;
+
+      .hero-title { font-size: 16pt !important; margin-bottom: 4px !important; }
+      .hero-subtitle { font-size: 11pt !important; margin-bottom: 4px !important; color: #2563eb !important; }
+      .hero-desc { font-size: 9pt !important; margin-bottom: 6px !important; color: #444 !important; }
+
+      /* Compact profile card */
+      .hero-card {
+        padding: 10px !important;
+        border: 1px solid #ddd !important;
+        border-radius: 10px !important;
+        background: #f9fafb !important;
+        box-shadow: none !important;
       }
+
+      .avatar-wrap {
+        width: 72px !important;
+        height: 72px !important;
+        margin: 0 auto 8px !important;
+        padding: 2px !important;
+      }
+
+      .hero-card h3 { font-size: 10pt !important; margin-bottom: 2px !important; }
+      .hero-card p { font-size: 8.5pt !important; margin-bottom: 8px !important; }
+
+      .card-meta { gap: 5px !important; padding-top: 8px !important; }
+      .meta-item { font-size: 8pt !important; gap: 5px !important; }
+
+      /* Stats compact row */
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 6px !important;
+        margin: 6px 0 12px !important;
+      }
+
+      .stat-box {
+        padding: 8px !important;
+        background: #f0f4ff !important;
+        border: 1px solid #dbe4ff !important;
+        border-radius: 6px !important;
+      }
+
+      .stat-num { font-size: 10pt !important; color: #1d4ed8 !important; }
+      .stat-label { font-size: 7.5pt !important; color: #555 !important; }
+
+      /* Section titles */
+      .section-title { font-size: 13pt !important; margin-bottom: 4px !important; }
+      .section-title i { color: #2563eb !important; }
+      .section-desc { font-size: 8.5pt !important; margin-bottom: 10px !important; }
+
+      /* Timeline compact */
+      .timeline { gap: 10px !important; margin-bottom: 16px !important; padding-left: 16px !important; }
+      .timeline-dot { left: -25px !important; width: 10px !important; height: 10px !important; }
+
+      .timeline-card {
+        padding: 10px 14px !important;
+        background: #fff !important;
+        border: 1px solid #ddd !important;
+        border-radius: 8px !important;
+        box-shadow: none !important;
+      }
+
+      .role-title { font-size: 10.5pt !important; }
+      .company-name { font-size: 9pt !important; color: #2563eb !important; }
+      .period-badge {
+        font-size: 8pt !important;
+        background: #eff6ff !important;
+        border: 1px solid #bfdbfe !important;
+        color: #1e40af !important;
+        padding: 2px 8px !important;
+      }
+
+      .timeline-card ul { gap: 5px !important; margin-top: 6px !important; }
+      .timeline-card li { font-size: 8.5pt !important; color: #333 !important; padding-left: 14px !important; }
+      .timeline-card li::before { color: #2563eb !important; }
+      .timeline-card strong { color: #111 !important; }
+
+      /* Skills compact */
+      .skills-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 8px !important;
+        margin-bottom: 12px !important;
+      }
+
+      .skill-card {
+        padding: 10px !important;
+        background: #f9fafb !important;
+        border: 1px solid #e5e7eb !important;
+        border-radius: 8px !important;
+      }
+
+      .skill-icon { width: 30px !important; height: 30px !important; font-size: 0.85rem !important; margin-bottom: 8px !important; }
+      .skill-card h4 { font-size: 9pt !important; margin-bottom: 6px !important; }
+      .pill { font-size: 7.5pt !important; padding: 2px 7px !important; background: #eff6ff !important; border-color: #bfdbfe !important; color: #1e40af !important; }
+
+      /* Education */
+      section[style*="margin-bottom: 80px"] { margin-bottom: 10px !important; }
+
+      /* Page breaks */
+      #experience { page-break-before: avoid; }
+      #skills { page-break-before: auto; }
+
+      .container { padding: 0 12px !important; }
     }
   </style>
 </head>
